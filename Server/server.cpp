@@ -19,7 +19,7 @@ int main() {
 
     sd = socket(AF_INET, SOCK_DGRAM, 0);
 
-    bind(sd, (struct sockaddr *)&server, sizeof(server);
+    bind(sd, (struct sockaddr *)&server, sizeof(server));
     
     for(;;) {
         n = recv (sd, buf, sizeof(buf), sizeof(server));
