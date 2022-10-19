@@ -23,7 +23,7 @@ int main(int argc, char **argv) {
 
     for(;;) {
         sendto(sd, "HI", 2, 0, (struct sockaddr *) &server, sizeof(server));
-        sleep(2);
+        sleep(5);
 
     }
     close(sd);
