@@ -8,7 +8,6 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-client1 = socket(AF_INET, SOCK_DGRAM, 0);
 void check_host_name(int hostname) { //This function returns host name for local computer
    if (hostname == -1) {
       perror("gethostname");
@@ -27,7 +26,7 @@ void IP_formatter(char *IPbuffer) { //convert IP string to dotted decimal format
       exit(1);
    }
 }
-main() {
+int main() {
    char host[256];
    char *IP;
    struct hostent *host_entry;
