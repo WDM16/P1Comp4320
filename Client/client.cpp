@@ -1,12 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <cstdint>
 #include <unistd.h>
-#include <errno.h>
-#include <netdb.h>
+#include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
+#include <netdb.h>
+#include <strings.h>
 
 int main(int argc, char **argv) {
     int sd;
@@ -17,12 +18,12 @@ int main(int argc, char **argv) {
 
     server.sin_family = AF_INET;
     server.sin_port = htons(12345);
-    hp = gethostbyname(argv[1]);
+    hp = gethostbyname("172.19.23.102");
     bcopy(hp->h_addr, &(server.sin_addr), hp->h_length);
 
     for(;;) {
         sendto(sd, "HI", 2, 0, (struct sockaddr *) &server, sizeof(server));
-        sleep(2);
+        sleep(5);
 
     }
     close(sd);
