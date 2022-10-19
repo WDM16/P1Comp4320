@@ -17,6 +17,7 @@ int main(int argc, char **argv) {
     sd = socket(AF_INET, SOCK_DGRAM, 0);
 
     bzero(&server, sizeof(server)); //Covered in lecture, said we need this
+    
     server.sin_family = AF_INET;
     server.sin_port = htons(12345); //Port number
     hp = gethostbyname("10.0.0.202"); //Server IP address
