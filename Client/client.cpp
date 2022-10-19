@@ -17,11 +17,12 @@ int main(int argc, char **argv) {
     sd = socket(AF_INET, SOCK_DGRAM, 0);
 
     server.sin_family = AF_INET;
-    server.sin_port = htons(12345);
-    hp = gethostbyname("172.19.23.102");
+    server.sin_port = htons(12345); //Port number
+    hp = gethostbyname("172.19.23.102"); //Server IP address
     bcopy(hp->h_addr, &(server.sin_addr), hp->h_length);
 
     for(;;) {
+        //Sends messgae to server
         sendto(sd, "HI", 2, 0, (struct sockaddr *) &server, sizeof(server));
         sleep(5);
 
