@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
 
     server.sin_family = AF_INET;
     server.sin_port = htons(12345);
-    hp = gethostbyname(argv[1]);
+    hp = gethostbyname("192.168.1.64");
     bcopy(hp->h_addr, &(server.sin_addr), hp->h_length);
 
     for(;;) {
