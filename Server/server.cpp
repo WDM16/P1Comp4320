@@ -43,6 +43,8 @@ int main() {
     if (bind(sd, (struct sockaddr *)&server, sizeof(server)) < 0) { //Checks to see if socket is binded
         cerr << "Error Binding Socket" << endl;
     }
+
+    
     
     for(;;) {
         //Recieves message from client 
