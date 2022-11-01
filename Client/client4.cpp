@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <netdb.h>
 #define PORT 8080
-#define TESTFILE "./src/TestFile"
+#define TESTFILE "TESTFILE.txt"
 using std::cout;
 using std::endl;
 
