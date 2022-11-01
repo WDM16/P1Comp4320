@@ -92,7 +92,7 @@ int put(ifstream &inputFile, float damage, float drop, char *fileName) {
 		cerr << "ERROR opening socket" << endl;
 
     server.sin_family = AF_INET;
-    server.sin_port = htons(SERVPORT);
+    server.sin_port = htons(12345);
 
     hp = gethostbyname("192.168.1.64");
     if (hp == NULL) {
