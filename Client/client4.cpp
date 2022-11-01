@@ -92,7 +92,7 @@ void gremlin(char packet[])
 	// get random number 1-100
 	int dice = rand() % 100 + 1;
 
-	// check if damanged
+	// check if damaged
 	if (dice <= damageProb)
 	{
 		dice = rand() % 10 + 1;
