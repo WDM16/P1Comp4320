@@ -92,8 +92,13 @@ void gremlin(char packet[])
 	// get random number 1-100
 	int randomNum = rand() % 100 + 1;
 
+<<<<<<< HEAD
 	// check if damanged
 	if (randomNum <= dprob)
+=======
+	// check if damaged
+	if (dice <= damageProb)
+>>>>>>> 697d3b67f40c81ea2d5c4603676937dd3ef63320
 	{
 		randomNum = rand() % 10 + 1;
 		if (randomNum == 10)
