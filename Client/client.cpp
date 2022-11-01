@@ -15,6 +15,9 @@ using std::endl;
 
 char packetBuffer[512];
 
+ifstream openFile(char* fileName);
+void getConfirmation(int sd);
+
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
