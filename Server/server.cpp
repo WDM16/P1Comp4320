@@ -7,6 +7,12 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+double damageProb = 0;
+double lostProb = 0;
+
+using std::cout;
+using std::cin;
+using std::endl;
 
 int main() {
     int n, sd;
@@ -30,5 +36,14 @@ int main() {
     }
 
     close(sd);
+
+    return 0;
+}
+//put gremlin in client
+int setProbabilities() {
+    cout << "Enter the probability of damaged packets (0-100): ";
+    cin >> damageProb;
+    cout << "Enter the probability of lost packets (0-100): ";
+    cin >> lossProb;
     return 0;
 }
