@@ -13,6 +13,11 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
+ifstream openFile(char* fileName);
+void getConfirmation(int sd);
+
+
 char packetBuffer[512];
 
 ifstream openFile(char* fileName) {
@@ -28,10 +33,6 @@ ifstream openFile(char* fileName) {
     }
     return infile;
 }
-
-ifstream openFile(char* fileName);
-void getConfirmation(int sd);
-
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
