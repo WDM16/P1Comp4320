@@ -44,17 +44,20 @@ int main() {
         cerr << "Error Binding Socket" << endl;
     }
 
-    
+    listen(sd, 5);
     
     for(;;) {
         //Recieves message from client 
         n = recv (sd, buf, sizeof(buf), sizeof(server));
         buf[n] = '\0';
-        printf("Received: %s\n", buf);
+        if(buf[n] != '0') {
+            printf("Received: %s\n", buf);
+        }
 
     }
 
     close(sd);
+    outfile.close();
 
     return 0;
 }
