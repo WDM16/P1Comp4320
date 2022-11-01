@@ -111,6 +111,17 @@ void gremlin(char packet[]) {
         cout << "GREMLIN: Packet successfully sent.";
     }
 }
+// Send the packet
+void sendPacket(char packet[]) {
+    // Send the packet
+    int sent = sendto(socketFD, packet, 512, 0, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+    if (sent < 0) {
+        cout << "ERROR: Failed to send packet." << endl;
+        exit(1);
+    }
+    cout << "Packet sent." << endl;
+}
+
 
 // Create the packets
 void createPacket(char packet[], int sequenceNumber, int packetSize) {
@@ -167,17 +178,6 @@ void createPacket(char packet[], int sequenceNumber, int packetSize) {
 	cout << "Creating end packet" << endl;
 	char endPacket[] = {'\0'};
 	sendPacket(endPacket);
-}
-
-// Send the packet
-void sendPacket(char packet[]) {
-    // Send the packet
-    int sent = sendto(socketFD, packet, 512, 0, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
-    if (sent < 0) {
-        cout << "ERROR: Failed to send packet." << endl;
-        exit(1);
-    }
-    cout << "Packet sent." << endl;
 }
 
 // Read the test file into buffer
