@@ -79,7 +79,7 @@ int main() {
         }
 
         if (packetNumber != expectedPacketNumber) {
-            cout << "There is a packet missing: " << expectedPacketNumber << endl;
+            cout << "A packet is missing: " << expectedPacketNumber << endl;
             expectedPacketNumber = packetNumber;
         }
 /**
@@ -91,7 +91,7 @@ int main() {
         }
         **/
         else {
-            cout << "This packet is corrupted: " << packetNumber << endl;
+            cout << "Packet is corrupted: " << packetNumber << endl;
         }
 
         for (int i = 4; i < n; i++) {
