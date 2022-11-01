@@ -13,11 +13,15 @@ double lostProb = 0;
 using std::cout;
 using std::cin;
 using std::endl;
+using namespace std;
 
 int main() {
     int n, sd;
     struct sockaddr_in server;
     char buf[512];
+
+    ofstream outfile;
+    outfile.open("../output.txt", ios::out);
 
     server.sin_family = AF_INET;
     server.sin_addr.s_addr = htonl(INADDR_ANY);
