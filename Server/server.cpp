@@ -53,8 +53,9 @@ int main() {
         //Recieves message from client 
         n = recv (sd, buf, sizeof(buf), sizeof(server));
         buf[n] = '\0';
-        if(buf[n] != '0') {
-            printf("Received: %s\n", buf);
+        if (startRequest[0] != '\0') {
+        	cout << "received PUT" << endl;
+            break;
         }
 
     }
@@ -80,7 +81,7 @@ int main() {
             expectedPacketNumber = packetNumber;
         }
 
-        if (!(isThereError(hash, data))) {
+        if (!(isError(hash, data))) {
         	cout << "Packet good: " << packetNumber << endl;
 			for (int i = 4; i < 52; i++) {
 				cout << (char) packet[i];
@@ -112,3 +113,10 @@ int main() {
     return 0;
 }
 
+bool isError(uint16_t expectedHash, uint8_t *data) {
+    uint16_t hash = checksum(data, 124);
+    if (hash == expectedHash) {
+        return false;
+    }
+    return true;
+}
