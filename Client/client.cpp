@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 
     for(;;) {
         //Sends messgae to server
-        sendto(sd, "HI", 2, 0, (struct sockaddr *) &server, sizeof(server));
+        sendto(sd, "HIS", 2, 0, (struct sockaddr *) &server, sizeof(server));
         sleep(5);
 
     }
