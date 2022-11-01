@@ -13,9 +13,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-<<<<<<< Updated upstream
 char packetBuffer[512];
-=======
 
 ifstream openFile(char* fileName) {
     ifstream infile;
@@ -30,7 +28,6 @@ ifstream openFile(char* fileName) {
     }
     return infile;
 }
->>>>>>> Stashed changes
 
 ifstream openFile(char* fileName);
 void getConfirmation(int sd);
