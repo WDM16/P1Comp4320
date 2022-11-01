@@ -18,6 +18,7 @@ void SegementMessageAndSend(string, struct sockaddr_in, socklen_t, int, string, 
 string SumOf(string Packet);
 string ReadFile(string);
 string Gremlin(string, int, int);
+
 int main(int argc, char *argv[]) {
 	srand(time(0));
 	string FileString = ReadFile((string)argv[2]);
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]) {
 	memset(&server_address, 0, sizeof(server_address));
 
 	server_address.sin_family = AF_INET;
-	server_address.sin_addr.s_addr = inet_addr("172.19.68.191); 
+	server_address.sin_addr.s_addr = inet_addr("172.19.68.191"); 
    	server_address.sin_port = htons( PORT );
 	
 	length = sizeof(server_address);
