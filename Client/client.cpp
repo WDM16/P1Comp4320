@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     server.sin_family = AF_INET;
     server.sin_port = htons(12345); //Port number
     hp = gethostbyname("10.0.0.202"); //Server IP address
-    bcopy(hp->h_addr, &(server.sin_addr), hp->h_length); //Binds IP address and Port number?
+    bcopy(hp->h_addr, &(server.sin_addr), hp->h_length); //Binds IP address and Port number? It copys from location one to location two
 
     for(;;) {
         //Sends messgae to server
