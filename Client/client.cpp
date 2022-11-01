@@ -13,6 +13,21 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
+ifstream openFile(char* fileName) {
+    ifstream infile;
+    infile.open (fileName, ios::in);
+
+    if (!infile.is_open()) {
+        cout << "Cannot Open File";
+        exit(1);
+    }
+    else {
+        cout << "File Succsessfully Opened\n";
+    }
+    return inputFile;
+}
+
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
@@ -36,3 +51,5 @@ int main(int argc, char **argv) {
     close(sd);
 
 }
+
+
