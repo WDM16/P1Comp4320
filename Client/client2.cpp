@@ -94,7 +94,7 @@ int put(ifstream &inputFile, float damage, float drop, char *fileName) {
     server.sin_family = AF_INET;
     server.sin_port = htons(12345);
 
-    hp = gethostbyname("192.168.1.64");
+    hp = gethostbyname("10.0.0.202");
     if (hp == NULL) {
     	cerr << "ERROR no such host" << endl;
     	exit(5);
