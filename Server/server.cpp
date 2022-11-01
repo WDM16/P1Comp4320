@@ -39,11 +39,4 @@ int main() {
 
     return 0;
 }
-//put gremlin in client
-int setProbabilities() {
-    cout << "Enter the probability of damaged packets (0-100): ";
-    cin >> damageProb;
-    cout << "Enter the probability of lost packets (0-100): ";
-    cin >> lossProb;
-    return 0;
-}
+

@@ -13,20 +13,7 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-
-ifstream openFile(char* fileName) {
-    ifstream infile;
-    infile.open (fileName, ios::in);
-
-    if (!infile.is_open()) {
-        cout << "Cannot Open File";
-        exit(1);
-    }
-    else {
-        cout << "File Succsessfully Opened\n";
-    }
-    return inputFile;
-}
+char packetBuffer[512];
 
 int main(int argc, char **argv) {
     int sd;
@@ -51,8 +38,6 @@ int main(int argc, char **argv) {
     close(sd);
 
 }
-
-
 //put gremlin in client
 int setProbabilities() {
     cout << "Enter the probability of damaged packets (0-100): ";
