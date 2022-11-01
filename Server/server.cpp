@@ -23,6 +23,8 @@ double lostProb = 0;
 using std::cout; using std::endl;
 using namespace std;
 
+bool isThereError(uint16_t expectedHash, uint8_t *data);
+
 int main() {
     int n, sd;
     struct sockaddr_in server, client;
