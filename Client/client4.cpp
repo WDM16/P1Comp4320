@@ -15,12 +15,17 @@
 using std::cout;
 using std::endl;
 
+
+//Emily Richardson
+//Jackson Shaw
+//Will May
+
 std::stringstream buffer;
 int damageProb;
 int lossProb;
 int sockfd;
 struct sockaddr_in servaddr;
-char packetBuffer[128] = {0};
+char packetBuffer[512] = {0};
 
 // connect to the client
 int connect()
@@ -39,7 +44,7 @@ int calculateChecksum(char packet[])
 {
 	int checksum = 0;
 	// 7 is the first index of the message body
-	for (int i = 7; i < 128; i++)
+	for (int i = 7; i < 512; i++)
 	{
 		checksum += packet[i];
 	}
@@ -76,7 +81,7 @@ void damage(char packet[], int amount)
 	// get random index
 	for (int i = 0; i < amount; i++)
 	{
-		int dice = rand() % 127;
+		int dice = rand() % 511;
 		packet[dice] = 'a' + rand() % 26;
 	}
 	cout << "GREMLIN: Packet damaged " << amount << " times" << endl;
@@ -170,7 +175,7 @@ void createPackets()
 		}
 
 		// check if packet is full and fill with null
-		while (charCountInBuffer < 128)
+		while (charCountInBuffer < 512)
 		{
 			packet[charCountInBuffer] = '\0';
 			charCountInBuffer++;
@@ -217,7 +222,7 @@ bool readFile(std::string fileName)
 
 bool sendRequest()
 {
-	char request[] = "PUT TestFile";
+	char request[] = "GET TestFile";
 	sendto(sockfd, (const char *)request, strlen(request),
 		   0, (const struct sockaddr *)&servaddr,
 		   sizeof(servaddr));
