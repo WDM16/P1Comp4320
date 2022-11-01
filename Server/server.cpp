@@ -1,21 +1,12 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <netdb.h>
+#include <iostream>
+#include <arpa/inet.h>
+#include <netinet/in.h>
 #include <sys/types.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <iostream>
-#include <sys/wait.h>
+#include <cstdint>
 #include <unistd.h>
+#include "../unp.h"
 #include <fstream>
-#include <iostream>
-#include <string>
-#include <istream>
-#include <sstream>
-#include <pthread.h>
 
 double damageProb = 0;
 double lostProb = 0;
@@ -24,6 +15,14 @@ using std::cout; using std::endl;
 using namespace std;
 
 bool isThereError(uint16_t expectedHash, uint8_t *data);
+
+bool isPossibleError(uint16_t expectedHash, uint8_t *data) {
+    uint16_t hash = checksum(data, 124);
+    if (hash == expectedHash) {
+        return false;
+    }
+    return true;
+}
 
 int main() {
     int n, sd;
@@ -110,14 +109,5 @@ int main() {
     close(sd);
     outfile.close();
     return 0;
-    }
-
 }
 
-bool isPossibleError(uint16_t expectedHash, uint8_t *data) {
-    uint16_t hash = checksum(data, 124);
-    if (hash == expectedHash) {
-        return false;
-    }
-    return true;
-}
