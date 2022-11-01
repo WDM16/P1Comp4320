@@ -25,8 +25,11 @@ using namespace std;
 
 int main() {
     int n, sd;
-    struct sockaddr_in server;
+    struct sockaddr_in server, client;
+    int slen = sizeof(client);
     char buf[512];
+    uint8_t packet[128];
+    uint16_t expectedPacketNumber = 0;
 
     ofstream outfile;
     outfile.open("output.txt"); //Creates or Opens outputfile
@@ -44,7 +47,7 @@ int main() {
         cerr << "Error Binding Socket" << endl;
     }
 
-    listen(sd, 5);
+    listen(sd, 4);
     
     for(;;) {
         //Recieves message from client 
@@ -56,9 +59,56 @@ int main() {
 
     }
 
+    for(;;) {
+        n = recvfrom(sd, packet, sizeof(packet), 0, (struct sockaddr*) &client, (socklen_t*)&slen);
+
+        uint8_t firstByte = packet[0];
+        uint8_t secondByte = packet[1];
+        uint8_t thirdByte = packet[2];
+        uint8_t fourthByte = packet[3];
+
+        uint16_t packetNumber = (uint16_t)(secondByte << (uint8_t) 8) | firstByte;
+        uint16_t hash = (uint16_t)(fourthByte << (uint8_t) 8) | thirdByte;
+        uint8_t *data = &packet[4];
+
+        if (n == 1) {
+            break;
+        }
+
+        if (packetNumber != expectedPacketNumber) {
+            cout << "There is a packet missing: " << expectedPacketNumber << endl;
+            expectedPacketNumber = packetNumber;
+        }
+
+        if (!(isThereError(hash, data))) {
+        	cout << "Packet good: " << packetNumber << endl;
+			for (int i = 4; i < 52; i++) {
+				cout << (char) packet[i];
+			}
+        }
+        else {
+            cout << "This packet is corrupted: " << packetNumber << endl;
+        }
+
+        for (int i = 4; i < n; i++) {
+        	//cout << (char) packet[i];
+			if (packet[i] != 0)
+        		outfile << (char) packet[i];
+		}
+        //outfile.write((char*)data, sizeof(data));
+
+        expectedPacketNumber++;
+    }
+
+    // sending final PUT message and closing the socket and file
+    cout << "File transfer complete" << endl;
+
+    sendto(sd, "PUT successfully completed", 26, 0, (struct sockaddr *) &client, sizeof(client));
+    }
+
+
     close(sd);
     outfile.close();
-
     return 0;
 }
 
