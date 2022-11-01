@@ -5,7 +5,7 @@
 #include <sys/socket.h>
 #include <cstdint>
 #include <unistd.h>
-#include "../unp.h"
+//#include "../unp.h"
 #include <fstream>
 
 double damageProb = 0;
@@ -13,7 +13,7 @@ double lostProb = 0;
 
 using std::cout; using std::endl;
 using namespace std;
-
+/**
 bool isThereError(uint16_t expectedHash, uint8_t *data);
 
 bool isPossibleError(uint16_t expectedHash, uint8_t *data) {
@@ -23,6 +23,7 @@ bool isPossibleError(uint16_t expectedHash, uint8_t *data) {
     }
     return true;
 }
+**/
 
 int main() {
     int n, sd;
@@ -81,13 +82,14 @@ int main() {
             cout << "There is a packet missing: " << expectedPacketNumber << endl;
             expectedPacketNumber = packetNumber;
         }
-
+/**
         if (!(isPossibleError(hash, data))) {
         	cout << "Packet good: " << packetNumber << endl;
 			for (int i = 4; i < 52; i++) {
 				cout << (char) packet[i];
 			}
         }
+        **/
         else {
             cout << "This packet is corrupted: " << packetNumber << endl;
         }
