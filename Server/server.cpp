@@ -83,7 +83,7 @@ int main() {
             expectedPacketNumber = packetNumber;
         }
 
-        if (!(isError(hash, data))) {
+        if (!(isPossibleError(hash, data))) {
         	cout << "Packet good: " << packetNumber << endl;
 			for (int i = 4; i < 52; i++) {
 				cout << (char) packet[i];
@@ -107,15 +107,14 @@ int main() {
     cout << "File transfer complete" << endl;
 
     sendto(sd, "PUT successfully completed", 26, 0, (struct sockaddr *) &client, sizeof(client));
-    }
-
-
     close(sd);
     outfile.close();
     return 0;
+    }
+
 }
 
-bool isError(uint16_t expectedHash, uint8_t *data) {
+bool isPossibleError(uint16_t expectedHash, uint8_t *data) {
     uint16_t hash = checksum(data, 124);
     if (hash == expectedHash) {
         return false;
