@@ -33,13 +33,11 @@ void gremlin(char packet[]) {
     int random = rand() % 100;
     // Randomly damage the packet
     if (random < damageProbability) {
-        int random = rand() % 100;
-    if (random < damageProbability) {
         int randomIndex = rand() % 512;
         packet[randomIndex] = 'X' + rand() % 26;
     }
     cout << "GREMLIN: Packet damaged" << endl;
-    }
+    
     // Randomly lose the packet and set to null.
     if (random < lossProbability) {
         cout << "GREMLIN: Packet lost." << endl;
