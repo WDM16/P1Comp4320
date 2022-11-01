@@ -20,19 +20,33 @@ void getConfirmation(int sd);
 
 char packetBuffer[512];
 
-ifstream openFile(char* fileName) {
-    ifstream infile;
-    infile.open (fileName, ios::in);
-
-    if (!infile.is_open()) {
-        cout << "Cannot Open File";
-        exit(1);
+int checkSum(char packet[]) {
+    int sum = 0;
+    for (int i = 0; i < 512; i++) {
+        sum += packet[i];
     }
-    else {
-        cout << "File Succsessfully Opened\n";
-    }
-    return infile;
+    return sum;
 }
+
+void gremlin(char packet[]) {
+    int random = rand() % 100;
+    // Randomly damage the packet
+    if (random < damageProbability) {
+        damagePacket(packet, 1);
+    }
+    // Randomly lose the packet and set to null.
+    if (random < lossProbability) {
+        cout << "GREMLIN: Packet lost." << endl;
+        packet = NULL;
+        return;
+    }
+    // Send the packet
+    else {
+        cout << "GREMLIN: Packet successfully sent.";
+    }
+}
+
+
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
