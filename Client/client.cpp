@@ -15,6 +15,33 @@ using std::endl;
 
 char packetBuffer[512];
 
+int checkSum(char packet[]) {
+    int sum = 0;
+    for (int i = 0; i < 512; i++) {
+        sum += packet[i];
+    }
+    return sum;
+}
+
+void gremlin(char packet[]) {
+    int random = rand() % 100;
+    // Randomly damage the packet
+    if (random < damageProbability) {
+        damagePacket(packet, 1);
+    }
+    // Randomly lose the packet and set to null.
+    if (random < lossProbability) {
+        cout << "GREMLIN: Packet lost." << endl;
+        packet = NULL;
+        return;
+    }
+    // Send the packet
+    else {
+        cout << "GREMLIN: Packet successfully sent.";
+    }
+}
+
+
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
