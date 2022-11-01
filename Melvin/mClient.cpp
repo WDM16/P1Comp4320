@@ -23,7 +23,7 @@
 #include <vector>
 #include <cstdlib>
 #define PORT 10004
-#define TESTFILE "/Users/willmay/Desktop/Introduction To Computer Networks (Comp 4320)/P1Comp4320/Test Files"
+#define TESTFILE "/Users/willmay/Desktop/Introduction To Computer Networks (Comp 4320)/P1Comp4320/Test Files/TESTFILE.txt"
 using std::cout;
 using std::cin;
 using std::endl;
