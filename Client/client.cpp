@@ -27,6 +27,15 @@ int checkSum(char packet[]) {
     }
     return sum;
 }
+void damagePkt(char packet[], int amount) {
+    int random = rand() % 100;
+    if (random < damageProbability) {
+        int randomIndex = rand() % 512;
+        packet[randomIndex] = 'X' + rand() % 26;
+    }
+    cout << "GREMLIN: Packet damaged." << amount << " times" << endl;
+}
+
 
 void gremlin(char packet[]) {
     int random = rand() % 100;
