@@ -10,7 +10,7 @@
 #include <fstream>
 #include <time.h>
 
-#define PORT 4320
+#define PORT 12345
 #define MAX 1024
 
 using namespace std;
@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 	memset(&server_address, 0, sizeof(server_address));
 
 	server_address.sin_family = AF_INET;
-	server_address.sin_addr.s_addr = inet_addr("192.168.238.135"); 
+	server_address.sin_addr.s_addr = inet_addr("172.19.68.191); 
    	server_address.sin_port = htons( PORT );
 	
 	length = sizeof(server_address);
