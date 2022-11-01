@@ -13,8 +13,14 @@ using std::cout;
 using std::cin;
 using std::endl;
 
+
+ifstream openFile(char* fileName);
+void getConfirmation(int sd);
+
+
 char packetBuffer[512];
 
+<<<<<<< HEAD
 int checkSum(char packet[]) {
     int sum = 0;
     for (int i = 0; i < 512; i++) {
@@ -42,6 +48,21 @@ void gremlin(char packet[]) {
 }
 
 
+=======
+ifstream openFile(char* fileName) {
+    ifstream infile;
+    infile.open (fileName, ios::in);
+
+    if (!infile.is_open()) {
+        cout << "Cannot Open File";
+        exit(1);
+    }
+    else {
+        cout << "File Succsessfully Opened\n";
+    }
+    return infile;
+}
+>>>>>>> 2eeb3ff302d6f05fb2631a96dcd7e89f17f49cbf
 int main(int argc, char **argv) {
     int sd;
     struct sockaddr_in server;
