@@ -21,11 +21,11 @@ using std::endl;
 //Will May
 
 std::stringstream buffer;
-int damageProb;
-int lossProb;
+int lprob;
+int dprob;
 int sockfd;
 struct sockaddr_in servaddr;
-char packetBuffer[512] = {0};
+char buf[512] = {0};
 
 // connect to the client
 int connect()
@@ -40,7 +40,7 @@ int connect()
 	return 0;
 }
 
-int calculateChecksum(char packet[])
+int checkSum(char packet[])
 {
 	int checksum = 0;
 	// 7 is the first index of the message body
@@ -52,55 +52,55 @@ int calculateChecksum(char packet[])
 }
 
 // calculate checksum by summing bytes of the packet
-void setupChecksum(char packet[])
+void setChecksum(char packet[])
 {
-	int checksum = calculateChecksum(packet);
+	int checksum = checkSum(packet);
 
 	// place in packet
-	char digits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
-	packet[2] = digits[checksum / 10000 % 10];
-	packet[3] = digits[checksum / 1000 % 10];
-	packet[4] = digits[checksum / 100 % 10];
-	packet[5] = digits[checksum / 10 % 10];
-	packet[6] = digits[checksum % 10];
+	char nums[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+	packet[2] = nums[checksum / 10000 % 10];
+	packet[3] = nums[checksum / 1000 % 10];
+	packet[4] = nums[checksum / 100 % 10];
+	packet[5] = nums[checksum / 10 % 10];
+	packet[6] = nums[checksum % 10];
 	cout << "Checksum: " << std::to_string(checksum) << endl;
 }
 
-int getGremlinProbabilities()
+int gremlinProbabilities()
 {
-	cout << "Enter probability for packet damage (0-100): ";
-	std::cin >> damageProb;
-	cout << "Enter probability for packet loss (0-100): ";
-	std::cin >> lossProb;
-	cout << "Gremlin probabilities are (" << std::to_string(damageProb) << "% damage) and (" << std::to_string(lossProb) << "% loss)" << endl;
+	cout << "Enter Packet Damange Probability (0-100): ";
+	std::cin >> dprob;
+	cout << "Enter Packet Loss Probability (0-100): ";
+	std::cin >> lprob;
+	cout << "Gremlin probabilities are (" << std::to_string(dprob) << "% damage) and (" << std::to_string(lprob) << "% loss)" << endl;
 	return 0;
 }
 
-void damage(char packet[], int amount)
+void damage(char packet[], int value)
 {
 	// get random index
-	for (int i = 0; i < amount; i++)
+	for (int i = 0; i < value; i++)
 	{
-		int dice = rand() % 511;
-		packet[dice] = 'a' + rand() % 26;
+		int randomNum = rand() % 511;
+		packet[randomNum] = 'a' + rand() % 26;
 	}
-	cout << "GREMLIN: Packet damaged " << amount << " times" << endl;
+	cout << "GREMLIN: Packet damaged " << value << " times" << endl;
 }
 
 void gremlin(char packet[])
 {
 	// get random number 1-100
-	int dice = rand() % 100 + 1;
+	int randomNum = rand() % 100 + 1;
 
 	// check if damanged
-	if (dice <= damageProb)
+	if (randomNum <= dprob)
 	{
-		dice = rand() % 10 + 1;
-		if (dice == 10)
+		randomNum = rand() % 10 + 1;
+		if (randomNum == 10)
 		{
 			damage(packet, 3);
 		}
-		else if (dice >= 8)
+		else if (randomNum >= 8)
 		{
 			damage(packet, 2);
 		}
@@ -112,11 +112,11 @@ void gremlin(char packet[])
 	}
 
 	// check if lost, set to null
-	dice = rand() % 100 + 1;
-	if (dice <= lossProb)
+	randomNum = rand() % 100 + 1;
+	if (randomPacket <= lprob)
 	{
 		cout << "GREMLIN: Packet lost" << endl;
-		packet[1] = 'B';
+		packet[1] = 'N';
 	}
 	// packet successful
 	else
@@ -140,11 +140,11 @@ void sendPacket(char packet[])
 	cout << "Packet sent" << endl;
 	int n;
 	socklen_t len;
-	n = recvfrom(sockfd, (char *)packetBuffer, 128,
+	n = recvfrom(sockfd, (char *)buf, 128,
 				 MSG_WAITALL, (struct sockaddr *)&servaddr,
 				 &len);
-	packetBuffer[n] = '\0';
-	printf("Server : %s\n", packetBuffer);
+	buf[n] = '\0';
+	printf("Server : %s\n", buf);
 	close(sockfd);
 }
 
@@ -162,7 +162,7 @@ void createPackets()
 
 		// setup header
 		packet[0] = sequenceNum;
-		packet[1] = 'A'; // Error protocol: A if OK, B if ERROR
+		packet[1] = 'Y'; // Error protocol: A if OK, B if ERROR
 
 		cout << "writing data to packet #" << sequenceNum << endl;
 
@@ -181,12 +181,12 @@ void createPackets()
 			charCountInBuffer++;
 		}
 
-		setupChecksum(packet);
+		setChecksum(packet);
 		gremlin(packet);
 		sequenceNum = (sequenceNum == '0') ? '1' : '0';
 
 		// if packet not lost
-		if (packet[1] == 'A')
+		if (packet[1] == 'Y')
 		{
 			// show packet info
 			std::string packetString = "";
