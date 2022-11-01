@@ -51,10 +51,8 @@ int main(int argc, char **argv) {
     close(sd);
 
 }
-<<<<<<< HEAD
 
 
-=======
 //put gremlin in client
 int setProbabilities() {
     cout << "Enter the probability of damaged packets (0-100): ";
@@ -63,4 +61,3 @@ int setProbabilities() {
     cin >> lossProb;
     return 0;
 }
->>>>>>> 01b9530e80b9e163a42c8de3dd60d7c9794d5ad2
