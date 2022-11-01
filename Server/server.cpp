@@ -52,10 +52,10 @@ int main() {
     listen(sd, 4);
     
     for(;;) {
-        //Recieves message from client 
+        //Recieves message from clients 
         n = recv (sd, buf, sizeof(buf), sizeof(server));
         buf[n] = '\0';
-        if (startRequest[0] != '\0') {
+        if (buf[0] != '\0') {
         	cout << "received PUT" << endl;
             break;
         }
