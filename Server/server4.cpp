@@ -8,7 +8,7 @@
 #include <fstream>
 #include <stdexcept>
 #define PORT 8080
-#define PACKET_SIZE 128
+#define PACKET_SIZE 512
 using namespace std;
 
 int sockfd;
@@ -38,7 +38,7 @@ int init()
 	if (::bind(sockfd, (const struct sockaddr *)&servaddr,
 			   sizeof(servaddr)) < 0)
 	{
-		perror("Failed to bind socket.");
+		perror("Cannot bind socket.");
 		exit(EXIT_FAILURE);
 	}
 
@@ -49,7 +49,7 @@ int init()
  * Calculate the checksum by adding the bytes of the packet body.
  * @param buffer The message received.
  */
-int calculateChecksum(char buffer[])
+int checkSum(char buffer[])
 {
 	int checksum = 0;
 	// 7 is the first index of the message body
@@ -68,7 +68,7 @@ bool validateChecksum(char buffer[])
 {
 	try
 	{
-		int calculatedChecksum = calculateChecksum(buffer);
+		int calculateChecksum = checkSum(buffer);
 
 		string checkSumString;
 		for (int i = 2; i < 7; i++)
@@ -77,7 +77,7 @@ bool validateChecksum(char buffer[])
 		}
 		int passedChecksum = stoi(checkSumString);
 
-		return calculatedChecksum == passedChecksum;
+		return calculateChecksum == passedChecksum;
 	}
 	// the first character in the passed checksum is not an int,
 	// which means it's damaged
