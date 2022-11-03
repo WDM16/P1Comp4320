@@ -46,20 +46,17 @@ int connect() //Connection to Client
 int checkSum(char packet[])
 {
 	int checksum = 0;
-	// 7 is the first index of the message body
-	for (int i = 7; i < 512; i++)
+	for (int i = 7; i < 512; i++) //Go through each of the packets in setChecksum
 	{
 		checksum += packet[i];
 	}
 	return checksum;
 }
 
-// calculate checksum by summing bytes of the packet
+//Calculate checksum by adding the bytes of each packet
 void setChecksum(char packet[])
 {
 	int checksum = checkSum(packet);
-
-	// place in packet
 	char nums[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	packet[2] = nums[checksum / 10000 % 10];
 	packet[3] = nums[checksum / 1000 % 10];
@@ -69,6 +66,7 @@ void setChecksum(char packet[])
 	cout << "Checksum: " << std::to_string(checksum) << endl;
 }
 
+//User requests for Gremlin
 int gremlinProbabilities()
 {
 	cout << "Enter Packet Damange Probability (0-100): ";
