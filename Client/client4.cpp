@@ -1,3 +1,7 @@
+//Emily Richardson
+//Jackson Shaw
+//Will May
+
 #include <stdio.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -14,11 +18,6 @@
 #define TESTFILE "TESTFILE.txt"
 using std::cout;
 using std::endl;
-
-
-//Emily Richardson
-//Jackson Shaw
-//Will May
 
 std::stringstream buffer;
 int lprob;
