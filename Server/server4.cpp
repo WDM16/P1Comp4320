@@ -39,23 +39,16 @@ int init() {
  
 
 //Method to Calculate the checksum by adding the bytes of the packet body.
-int checkSum(char buffer[])
-{
+int checkSum(char buffer[]) {
 	int checksum = 0;
-	// 7 is the first index of the message body
-	for (int i = 7; i < PACKET_SIZE; i++)
-	{
+	for (int i = 7; i < PACKET_SIZE; i++) {
 		checksum += buffer[i];
 	}
 	return checksum;
 }
 
-/**
- * Compare the checksum calculated with the checksum in the message header.
- * @param buffer The message received.
- */
-bool validateChecksum(char buffer[])
-{
+//Method that compares checksum calculated to the checksum in the header.
+bool validateChecksum(char buffer[]) {
 	try
 	{
 		int calculateChecksum = checkSum(buffer);
