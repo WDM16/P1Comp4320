@@ -21,7 +21,7 @@ struct sockaddr_in cliaddr, servaddr;
 //Method to initialize socket, port, IP, etc.
 int init() { 
 	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) { //Test case
-		perror("Failed to create socket.");
+		perror("Failure to create socket.");
 		exit(EXIT_FAILURE);
 	}
 	memset(&servaddr, 0, sizeof(servaddr));
@@ -31,7 +31,7 @@ int init() {
 	servaddr.sin_addr.s_addr = INADDR_ANY; //Assign IP Address
 	servaddr.sin_port = htons(PORT); //Assign Port Number
 	if (::bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) { //If can't bind 
-		perror("Cannot bind socket.");
+		perror("Failure to bind socket.");
 		exit(EXIT_FAILURE);
 	}
 	return 0;
@@ -74,7 +74,7 @@ int writeFile(ofstream &file, char buffer[]) {
 //Method that sends response to client
 int sendResponse(char resp[], socklen_t socketLength) {
 	sendto(sockfd, (const char *)resp, strlen(resp), 0, (const struct sockaddr *)&cliaddr, socketLength);
-	cout << "Sending: " << resp << endl;
+	cout << "Sending response: " << resp << endl;
 	cout << endl;
 	return 0;
 }
@@ -89,7 +89,7 @@ int receiveMessage() {
 	socketLength = sizeof(cliaddr);
 	file.open("OutputFile.txt");
 	if (!file.is_open()) { //Checks if the file is not open
-		cout << "Failed to open output file." << endl;
+		cout << "Failure to open output file." << endl;
 		exit(EXIT_FAILURE);
 	}
 	char previousSequenceNumber;
@@ -104,18 +104,18 @@ int receiveMessage() {
 			cout << "Packet " << sequenceNumber << " has a duplicate sequence number. A packet was lost." << endl;
 		}
 		else {
-			cout << "Packet " << sequenceNumber << " received. Checking for errors..." << endl;
+			cout << "Packet No. " << sequenceNumber << " received. Checking for errors..." << endl;
 
 			if (!validateChecksum(buffer) || (sequenceNumber != '0' && sequenceNumber != '1')) {
-				cout << "Packet " << sequenceNumber << " is damaged." << endl;
+				cout << "Packet No. " << sequenceNumber << " is damaged." << endl;
 			}
 			else {
-				cout << "Packet " << sequenceNumber << " is ok." << endl;
+				cout << "Packet No. " << sequenceNumber << " is ok." << endl;
 			}
 		}
 		previousSequenceNumber = sequenceNumber;
-		cout << "Printing the first 48 bytes of packet " << sequenceNumber << ":" << endl;
-		for (int i = 0; i < 48; i++) {
+		cout << "Printing the first 100 bytes of packet " << sequenceNumber << ":" << endl;
+		for (int i = 0; i < 100; i++) {
 			cout << buffer[i];
 		}
 		cout << endl;
