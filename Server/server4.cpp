@@ -37,7 +37,7 @@ int init() {
 	return 0;
 }
  
-//Method to calculate the checksum by adding the bytes of the packet body.
+//Method to calculate the checksum by adding the bytes of the packet body
 int checkSum(char buffer[]) {
 	int checksum = 0;
 	for (int i = 7; i < PACKET_SIZE; i++) {
@@ -46,7 +46,7 @@ int checkSum(char buffer[]) {
 	return checksum;
 }
 
-//Method that compares checksum calculated to the checksum in the header.
+//Method that compares checksum calculated to the checksum in the header
 bool validateChecksum(char buffer[]) {
 	try {
 		int calculateChecksum = checkSum(buffer);
@@ -62,8 +62,7 @@ bool validateChecksum(char buffer[]) {
 	}
 }
 
-
-//Method that writes the contents of buffers body to the filestream.
+//Method that writes the buffer body to filestream
 int writeFile(ofstream &file, char buffer[]) {
 	for (int i = 7; i < PACKET_SIZE; i++) {
 		if (buffer[i] != '\0')
@@ -72,18 +71,11 @@ int writeFile(ofstream &file, char buffer[]) {
 	return 0;
 }
 
-/**
- * Sends response messages to the client.
- * @param resp The response message to be sent.
- */
-int sendResponse(char resp[], socklen_t socketLength)
-{
-	sendto(sockfd, (const char *)resp, strlen(resp),
-		   0, (const struct sockaddr *)&cliaddr,
-		   socketLength);
+//Method that sends response to client
+int sendResponse(char resp[], socklen_t socketLength) {
+	sendto(sockfd, (const char *)resp, strlen(resp), 0, (const struct sockaddr *)&cliaddr, socketLength);
 	cout << "Sending: " << resp << endl;
 	cout << endl;
-
 	return 0;
 }
 
