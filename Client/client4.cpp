@@ -82,58 +82,45 @@ int gremlinProbabilities()
     return 0;
 }
 
+//Damage method to damage packets
 void damage(char packet[], int value)
 {
-	// get random index
 	for (int i = 0; i < value; i++)
 	{
 		int randomNum = rand() % 511;
-
 		packet[randomNum] = 'a' + rand() % 26;
 	}
 	cout << "GREMLIN: Packet damaged " << value << " times" << endl;
 }
 
+//Gremlin function
 void gremlin(char packet[])
 {
-	// get random number 1-100
-	int randomNum = rand() % 100 + 1;
-
-	// check if damanged
-	if (randomNum <= dprob)
-	// check if damaged
+	int randomNum = rand() % 100 + 1; //Choose random number from 1-100
+	if (randomNum <= dprob) //Checks if the packet got damanged
 	    if (randomNum <= dprob)
 	    {
 		    randomNum = rand() % 10 + 1;
-		
             if (randomNum == 10)
 		    {
 			    damage(packet, 3);
-		    }
-		
+		    }		
             else if (randomNum >= 8)
 		    {
 			    damage(packet, 2);
 		    }
-		
             else
 		    {
 			    damage(packet, 1);
 		    }
-		
             return;
-	   
         }
-
-	// check if lost, set to null
 	randomNum = rand() % 100 + 1;
-	if (randomNum <= lprob)
-	{
+	if (randomNum <= lprob) { //Packet lost due to Gremlin
 		cout << "GREMLIN: Packet lost" << endl;
 		packet[1] = 'N';
 	}
-	// packet successful
-	else
+	else //Packet Successfully Delivered
 	{
 		cout << "GREMLIN: Packet correctly delivered" << endl;
 	}
