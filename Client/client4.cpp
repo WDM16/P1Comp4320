@@ -143,7 +143,9 @@ void createPackets() {
 		}
 		setChecksum(packet);
 		gremlin(packet);
-		sequenceNumber = (sequenceNumber == '0') ? '1' : '0';
+		if(sequenceNumber == '0')
+		sequenceNumber = '1';
+		else sequenceNumber == '0'; 
 		if (packet[1] == 'Y') { //Checks if packet is not lost
 			std::string packetString = "";
 			for (int i = 0; i < 48; i++) {
