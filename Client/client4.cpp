@@ -14,7 +14,7 @@
 #include <vector>
 #include <cstdlib>
 #include <netdb.h>
-#define PORT 8080
+#define PORT 12345
 #define TESTFILE "TESTFILE.txt"
 using std::cout;
 using std::endl;
