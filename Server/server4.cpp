@@ -24,30 +24,21 @@ int init() {
 		perror("Failed to create socket.");
 		exit(EXIT_FAILURE);
 	}
-
 	memset(&servaddr, 0, sizeof(servaddr));
 	memset(&cliaddr, 0, sizeof(cliaddr));
 
-	// Filling server information
 	servaddr.sin_family = AF_INET;
-	servaddr.sin_addr.s_addr = INADDR_ANY;
-	servaddr.sin_port = htons(PORT);
-
-	// Bind the socket with the server address
-	if (::bind(sockfd, (const struct sockaddr *)&servaddr,
-			   sizeof(servaddr)) < 0)
-	{
+	servaddr.sin_addr.s_addr = INADDR_ANY; //Assign IP Address
+	servaddr.sin_port = htons(PORT); //Assign Port Number
+	if (::bind(sockfd, (const struct sockaddr *)&servaddr, sizeof(servaddr)) < 0) { //If can't bind 
 		perror("Cannot bind socket.");
 		exit(EXIT_FAILURE);
 	}
-
 	return 0;
 }
+ 
 
-/**
- * Calculate the checksum by adding the bytes of the packet body.
- * @param buffer The message received.
- */
+//Method to Calculate the checksum by adding the bytes of the packet body.
 int checkSum(char buffer[])
 {
 	int checksum = 0;
