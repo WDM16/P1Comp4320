@@ -126,34 +126,20 @@ void gremlin(char packet[])
 	}
 }
 
+//Method to send the packet
 void sendPacket(char packet[])
 {
-	// server is cutting it short atm
-	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-	{
+	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) { //Failed to create socket
 		perror("Failed to create socket");
-
 		exit(EXIT_FAILURE);
 	}
-
-	sendto(sockfd, (const char *)packet, 512,
-		   0, (const struct sockaddr *)&servaddr,
-		   sizeof(servaddr));
-
+	sendto(sockfd, (const char *)packet, 512, 0, (const struct sockaddr *)&servaddr, sizeof(servaddr)); //Sends packet
 	cout << "Packet sent" << endl;
-
 	int n;
-
 	socklen_t len;
-
-	n = recvfrom(sockfd, (char *)buf, 512,
-				 MSG_WAITALL, (struct sockaddr *)&servaddr,
-				 &len);
-	
+	n = recvfrom(sockfd, (char *)buf, 512, MSG_WAITALL, (struct sockaddr *)&servaddr, &len);
     buf[n] = '\0';
-
 	printf("Server : %s\n", buf);
-
 	close(sockfd);
 }
 
