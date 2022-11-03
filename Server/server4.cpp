@@ -37,8 +37,7 @@ int init() {
 	return 0;
 }
  
-
-//Method to Calculate the checksum by adding the bytes of the packet body.
+//Method to calculate the checksum by adding the bytes of the packet body.
 int checkSum(char buffer[]) {
 	int checksum = 0;
 	for (int i = 7; i < PACKET_SIZE; i++) {
@@ -49,36 +48,24 @@ int checkSum(char buffer[]) {
 
 //Method that compares checksum calculated to the checksum in the header.
 bool validateChecksum(char buffer[]) {
-	try
-	{
+	try {
 		int calculateChecksum = checkSum(buffer);
-
 		string checkSumString;
-		for (int i = 2; i < 7; i++)
-		{
+		for (int i = 2; i < 7; i++) {
 			checkSumString += buffer[i];
 		}
 		int passedChecksum = stoi(checkSumString);
-
 		return calculateChecksum == passedChecksum;
 	}
-	// the first character in the passed checksum is not an int,
-	// which means it's damaged
-	catch (std::invalid_argument)
-	{
+	catch (std::invalid_argument) {
 		return false;
 	}
 }
 
-/**
- * Write the contents of the buffer's body to the filestream.
- * @param file Pointer to the output file stream to write to.
- * @param buffer The buffer with the message to write to the file.
- */
-int writeFile(ofstream &file, char buffer[])
-{
-	for (int i = 7; i < PACKET_SIZE; i++)
-	{
+
+//Method that writes the contents of buffers body to the filestream.
+int writeFile(ofstream &file, char buffer[]) {
+	for (int i = 7; i < PACKET_SIZE; i++) {
 		if (buffer[i] != '\0')
 			file << buffer[i];
 	}
