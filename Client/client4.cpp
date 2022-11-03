@@ -132,32 +132,20 @@ void createPackets() {
 		packet[0] = sequenceNumber;
 		packet[1] = 'Y';
 		cout << "writing data to packet #" << sequenceNumber << endl;
-
-		// loop until packet is full or buffer is completely read
-		while (characterCount < buffer.str().length() && characterCountInBuffer < 512) {
+		while (characterCount < buffer.str().length() && characterCountInBuffer < 512) { //Loop until Buffer is read or full
 			packet[characterCountInBuffer] = buffer.str()[characterCount];
-
 			characterCountInBuffer++;
-
 			characterCount++;
 		}
-
-		// check if packet is full and fill with null
-		while (characterCountInBuffer < 512) {
+		while (characterCountInBuffer < 512) { //Checks to see if the packet is full, fills
 			packet[characterCountInBuffer] = '\0';
-
 			characterCountInBuffer++;
 		}
-
 		setChecksum(packet);
 		gremlin(packet);
 		sequenceNumber = (sequenceNumber == '0') ? '1' : '0';
-
-		// if packet not lost
-		if (packet[1] == 'Y') {
-			// show packet info
+		if (packet[1] == 'Y') { //Checks if packet is not lost
 			std::string packetString = "";
-
 			for (int i = 0; i < 48; i++) {
 				packetString += packet[i];
 			}
@@ -165,13 +153,9 @@ void createPackets() {
 			sendPacket(packet);
 		}
 	}
-
-	// create blank ending packet
 	cout << "Creating end packet" << endl;
-
 	char endPacket[] = {'\0'};
-
-	sendPacket(endPacket);
+	sendPacket(endPacket); //Sends the ending packet
 }
 
 // read test file into buffer
