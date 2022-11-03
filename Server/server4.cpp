@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#define PORT 12345
+#define PORT 12345p
 #define PACKET_SIZE 512
 using namespace std;
 
@@ -126,7 +126,7 @@ int receiveMessage() {
 	}
 	cout << "Final packet received. Writing file." << endl;
 	file.close();
-	char successMsg[] = "PUT successfully completed";
+	char successMsg[] = "GET successfully completed";
 	sendResponse(successMsg, socketLength);
 	return 0;
 }
