@@ -1,3 +1,7 @@
+//Emily Richardson
+//Jackson Shaw
+//Will May
+
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/socket.h>
@@ -14,14 +18,9 @@ using namespace std;
 int sockfd;
 struct sockaddr_in cliaddr, servaddr;
 
-/**
- * Bind the server to localhost and the port number defined.
- */
-int init()
-{
-	// Creating socket file descriptor
-	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
-	{
+//Method to initialize socket, port, IP, etc.
+int init() { 
+	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) { //Test case
 		perror("Failed to create socket.");
 		exit(EXIT_FAILURE);
 	}
