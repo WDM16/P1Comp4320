@@ -104,7 +104,7 @@ void gremlin(char packet[])
 	// check if damanged
 	if (randomNum <= dprob)
 	// check if damaged
-	    if (dice <= damageProb)
+	    if (randomNum <= dprob)
 	    {
 		    randomNum = rand() % 10 + 1;
 		
@@ -129,7 +129,7 @@ void gremlin(char packet[])
 
 	// check if lost, set to null
 	randomNum = rand() % 100 + 1;
-	if (randomPacket <= lprob)
+	if (randomNum <= lprob)
 	{
 		cout << "GREMLIN: Packet lost" << endl;
 		packet[1] = 'N';
@@ -146,7 +146,7 @@ void sendPacket(char packet[])
 	// server is cutting it short atm
 	if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 	{
-		perror("Failed to create socket);
+		perror("Failed to create socket");
 
 		exit(EXIT_FAILURE);
 	}
