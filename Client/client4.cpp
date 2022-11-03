@@ -27,18 +27,18 @@ int sockfd;
 struct sockaddr_in servaddr;
 char buf[512] = {0};
 
-// connect to the client
-int connect()
+
+int connect() //Connection to Client 
 
 {
 	memset(&servaddr, 0, sizeof(servaddr));
 
-	// Filling server information
-	servaddr.sin_family = AF_INET;
 
-	servaddr.sin_port = htons(PORT);
+	servaddr.sin_family = AF_INET; 
 
-	servaddr.sin_addr.s_addr = INADDR_ANY;
+	servaddr.sin_port = htons(PORT); //Assign the Port Number
+
+	servaddr.sin_addr.s_addr = INADDR_ANY; //Assign IP Address
 
 	return 0;
 }
