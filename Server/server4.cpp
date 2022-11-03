@@ -11,7 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <stdexcept>
-#define PORT 12345p
+#define PORT 12345
 #define PACKET_SIZE 512
 using namespace std;
 
