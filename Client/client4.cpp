@@ -158,61 +158,40 @@ void createPackets() {
 	sendPacket(endPacket); //Sends the ending packet
 }
 
-// read test file into buffer
-bool readFile(std::string fileName)
-{
+//Method to read the test file
+bool readFile(std::string fileName) {
 	std::fstream file(fileName);
-
-	if (!file.is_open())
-	{
+	if (!file.is_open()) { //If the file is currently open
 		cout << "File is not found" << endl;
-
 		return false;
 	}
-
 	buffer << file.rdbuf();
-
 	return true;
 }
 
-bool sendRequest()
-{
+//Method to send the request to Server
+bool sendRequest() {
 	char request[] = "GET TestFile";
-
-	sendto(sockfd, (const char *)request, strlen(request),
-		   0, (const struct sockaddr *)&servaddr,
-		   sizeof(servaddr));
-
+	sendto(sockfd, (const char *)request, strlen(request), 0, (const struct sockaddr *)&servaddr, sizeof(servaddr));
 	cout << "Sending: " << request << endl;
-
 	cout << endl;
-
 	return true;
 }
 
-int main(int argc, char const *argv[])
-{
+//Main method
+int main(int argc, char const *argv[]) {
 	srand(time(0));
-
-	sockfd = connect();
-
-	if (sockfd != 0)
-	{
+	sockfd = connect(); //Connect the socket
+	if (sockfd != 0) {
 		return -1;
 	}
-
-	if (!readFile(TESTFILE))
-	{
+	if (!readFile(TESTFILE)) { //If cannot read testfile, end
 		return -1;
 	}
-
-	gremlinProbabilities();
-
-	if (!sendRequest())
-	{
+	gremlinProbabilities(); //Go through gremlin methods
+	if (!sendRequest()) { //If cannot send a request, end
 		return -1;
 	}
-
 	createPackets();
 	return 0;
 }
