@@ -15,7 +15,7 @@
 #include <vector>
 #include <cstdlib>
 #include <netdb.h>
-#define PORT 8080
+#define PORT 12345
 #define TESTFILE "TESTFILE.txt"
 using std::cout;
 using std::endl;
@@ -117,7 +117,7 @@ void sendPacket(char packet[]) {
 	socklen_t len;
 	n = recvfrom(sockfd, (char *)buf, 512, MSG_WAITALL, (struct sockaddr *)&servaddr, &len);
     buf[n] = '\0';
-	printf("Server : %s\n", buf);
+	printf("Server: %s\n", buf);
 	close(sockfd);
 }
 
@@ -132,7 +132,7 @@ void createPackets() {
 		int characterCountInBuffer = headerSize; 
 		packet[0] = sequenceNumber;
 		packet[1] = 'Y';
-		cout << "writing data to packet #" << sequenceNumber << endl;
+		cout << "Writing data to Packet No. " << sequenceNumber << endl;
 		while (characterCount < buffer.str().length() && characterCountInBuffer < 512) { //Loop until Buffer is read or full
 			packet[characterCountInBuffer] = buffer.str()[characterCount];
 			characterCountInBuffer++;
@@ -149,10 +149,10 @@ void createPackets() {
 		else sequenceNumber = '0'; 
 		if (packet[1] == 'Y') { //Checks if packet is not lost - Y means we are good
 			std::string packetString = "";
-			for (int i = 0; i < 48; i++) {
+			for (int i = 0; i < 100; i++) {
 				packetString += packet[i];
 			}
-			cout << "Packet #" << sequenceNumber << " to be sent: " << packetString << endl;
+			cout << "Packet No. " << sequenceNumber << " to be sent: " << packetString << endl;
 			sendPacket(packet);
 		}
 	}
