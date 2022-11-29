@@ -17,6 +17,9 @@ using namespace std;
 
 int sockfd;
 struct sockaddr_in cliaddr, servaddr;
+int windowSize = 32; //defined in Project2 description
+int firstSeq = 0; //seq number of first frame in window
+int nSeQ = 0; //sequence number of nth frame in window
 
 //Method to initialize socket, port, IP, etc.
 int init() { 
@@ -82,6 +85,16 @@ int sendResponse(char resp[], socklen_t socketLength) {
 
 //Method that listens for message from client and writes the output
 int receiveMessage() {
+	/*
+	Experimental GBN Protocol Implementation Pseudocode
+	while(true) {
+		seqnum = 0
+		windowmax = 31
+		send 0-31
+		when we recieve an ack the window increases and we send again
+		if we timeout or nak then we resend from that number
+	}
+	*/
 	char buffer[PACKET_SIZE] = {0};
 	ofstream file;
 	socklen_t socketLength;

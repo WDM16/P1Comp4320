@@ -66,7 +66,7 @@ int gremlinProbabilities() {
 	std::cin >> lprob;
 
 	cout << "Enter Packet Delay Time (in ms): ";
-	std::cin >> dlprob;
+	std::cin >> dlTime;
 
 	cout << "Gremlin probabilities are (" << std::to_string(dprob) << "% damage) ,  (" << std::to_string(lprob) << "% loss)" << "and " << std::to_string(dlTime)<< "ms" << endl;
     return 0;
