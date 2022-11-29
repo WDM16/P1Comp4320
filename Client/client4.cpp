@@ -23,6 +23,7 @@ using std::endl;
 std::stringstream buffer;
 int lprob;
 int dprob;
+int dlTime;
 int sockfd;
 struct sockaddr_in servaddr;
 char buf[512] = {0};
@@ -64,7 +65,10 @@ int gremlinProbabilities() {
 	cout << "Enter Packet Loss Probability (0-100): ";
 	std::cin >> lprob;
 
-	cout << "Gremlin probabilities are (" << std::to_string(dprob) << "% damage) and (" << std::to_string(lprob) << "% loss)" << endl;
+	cout << "Enter Packet Delay Time (in ms): ";
+	std::cin >> dlprob;
+
+	cout << "Gremlin probabilities are (" << std::to_string(dprob) << "% damage) ,  (" << std::to_string(lprob) << "% loss)" << "and " << std::to_string(dlTime)<< "ms" << endl;
     return 0;
 }
 
