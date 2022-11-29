@@ -1,6 +1,7 @@
 //Emily Richardson
 //Jackson Shaw
 //Will May
+//11-03-22
 
 #include <stdio.h>
 #include <sys/socket.h>
@@ -126,6 +127,7 @@ void createPackets() {
 	char sequenceNumber = '0';
 	int headerSize = 7;
 	while (characterCount < buffer.str().length()) {
+		//512 is size outlined in proj description
 		char packet[512];
 		int characterCountInBuffer = headerSize; 
 		packet[0] = sequenceNumber;
@@ -145,7 +147,7 @@ void createPackets() {
 		if(sequenceNumber == '0')
 		sequenceNumber = '1';
 		else sequenceNumber = '0'; 
-		if (packet[1] == 'Y') { //Checks if packet is not lost
+		if (packet[1] == 'Y') { //Checks if packet is not lost - Y means we are good
 			std::string packetString = "";
 			for (int i = 0; i < 48; i++) {
 				packetString += packet[i];
@@ -154,9 +156,10 @@ void createPackets() {
 			sendPacket(packet);
 		}
 	}
+	//send the ending packet as outlined in proj description
 	cout << "Creating end packet" << endl;
 	char endPacket[] = {'\0'};
-	sendPacket(endPacket); //Sends the ending packet
+	sendPacket(endPacket); 
 }
 
 //Method to read the test file
